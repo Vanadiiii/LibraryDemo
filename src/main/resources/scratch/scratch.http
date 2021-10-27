@@ -1,0 +1,29 @@
+GET localhost:8080/library/v1/books/17abc941-3883-427f-8f80-6e5054471222
+###
+GET localhost:8080/library/v1/authors/books?authorName=Miran Lipovaca
+###
+GET localhost:8080/library/v1/books?title=Learn Haskell for great good
+###
+POST localhost:8080/library/v1/books
+Content-Type: application/json
+
+{
+  "title": "Learn Haskell for great good",
+  "description": "really good book about haskell",
+  "genre": "EDUCATIONAL",
+  "author": {
+    "fullName": "Miran Lipovaca"
+  }
+}
+###
+PATCH localhost:8080/library/v1/books/17abc941-3883-427f-8f80-6e5054471222
+Content-Type: application/json
+
+{
+  "title": "Learn Haskell for great good",
+  "description": "my favourite book about haskell!! I love it!",
+  "genre": "EDUCATIONAL",
+  "author": {
+    "fullName": "Miran Lipovaca"
+  }
+}

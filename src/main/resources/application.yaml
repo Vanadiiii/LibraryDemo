@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:h2:mem:library
+    password:
+    username: sa
+  liquibase:
+    enabled: off
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8080
