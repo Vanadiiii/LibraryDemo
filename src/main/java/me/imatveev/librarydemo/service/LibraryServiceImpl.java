@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.imatveev.librarydemo.domain.LibraryService;
 import me.imatveev.librarydemo.domain.entity.Book;
-import me.imatveev.librarydemo.domain.repository.AuthorRepository;
 import me.imatveev.librarydemo.domain.repository.BookRepository;
 import me.imatveev.librarydemo.service.patcher.BookPatcher;
+import me.imatveev.librarydemo.web.exception.BookAlreadyExistsException;
 import me.imatveev.librarydemo.web.exception.BookNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class LibraryServiceImpl implements LibraryService {
     private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
     private final BookPatcher bookPatcher;
 
 
@@ -55,6 +54,10 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Book saveNewBook(Book book) {
+        if (bookRepository.existsByTitle(book.getTitle())) {
+            throw BookAlreadyExistsException.ofTitle(book.getTitle());
+        }
+
         log.info("try to save new book - {}", book);
         return bookRepository.save(book);
     }
